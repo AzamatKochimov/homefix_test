@@ -17,11 +17,37 @@ class AddNewPlanPage extends StatefulWidget {
 class _AddNewPlanPageState extends State<AddNewPlanPage> {
   DateTime selectedDate = DateTime.now();
   final TextEditingController _planNameController = TextEditingController();
+  bool _showError = false;
+
+  @override
+  void dispose() {
+    _planNameController.dispose();
+    super.dispose();
+  }
 
   void _onDateChanged(DateTime date) {
     setState(() {
       selectedDate = date;
     });
+  }
+
+  void _saveTask() {
+    if (_planNameController.text.isEmpty) {
+      setState(() {
+        _showError = true;
+      });
+    } else {
+      final task = Task(
+        title: _planNameController.text,
+        date: DateFormat('dd.MM.yyyy').format(selectedDate),
+        isCompleted: false,
+      );
+
+      context.read<TaskBloc>().add(TaskEvent.addTask(task));
+
+      Navigator.pop(context);
+      print('Saving Plan: ${task.title} on $selectedDate');
+    }
   }
 
   @override
@@ -62,6 +88,7 @@ class _AddNewPlanPageState extends State<AddNewPlanPage> {
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
                 ),
+                errorText: _showError ? 'Title is required' : null,
               ),
             ),
             const SizedBox(height: 16),
@@ -81,21 +108,7 @@ class _AddNewPlanPageState extends State<AddNewPlanPage> {
                 child: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                       final task = Task(
-                        title: _planNameController.text,
-                        date: DateFormat('dd.MM.yyyy').format(selectedDate),
-                        isCompleted: false,
-                      );
-
-                      context
-                          .read<TaskBloc>()
-                          .add(TaskEvent.toggleTaskCompletion(task));
-
-                      Navigator.pop(context);
-                      String planName = _planNameController.text;
-                      print('Saving Plan: $planName on $selectedDate');
-                    },
+                    onPressed: _saveTask,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xff26BDBE),
                       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -103,7 +116,14 @@ class _AddNewPlanPageState extends State<AddNewPlanPage> {
                         borderRadius: BorderRadius.circular(24),
                       ),
                     ),
-                    child: const Text('Saqlash', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),),
+                    child: const Text(
+                      'Saqlash',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -113,16 +133,16 @@ class _AddNewPlanPageState extends State<AddNewPlanPage> {
       ),
     );
   }
-  
+
   Widget _buildCalendar() {
     return Localizations(
       locale: const Locale('ru', 'RU'),
-      delegates:const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate, 
-        ],
+      delegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       child: Theme(
         data: ThemeData(
           colorScheme: const ColorScheme.light(
@@ -141,18 +161,8 @@ class _AddNewPlanPageState extends State<AddNewPlanPage> {
 
   String _getMonthName(int month) {
     List<String> months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ];
     return months[month - 1];
   }

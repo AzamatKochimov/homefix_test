@@ -20,6 +20,11 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       await taskRepository.toggleTaskCompletion(event.task);
       add(const TaskEvent.loadTasks());
     });
+
+    on<_AddTask>((event, emit) async {
+      await taskRepository.addTask(event.task);
+      add(const TaskEvent.loadTasks());
+    });
   }
 }
 

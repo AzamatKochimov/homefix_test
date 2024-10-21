@@ -69,29 +69,57 @@ class _TaskListPageState extends State<TaskListPage> {
               },
             );
           },
-        ));
+        ),
+    );
   }
 
   Widget _buildTaskList(BuildContext context, String title, List<Task> tasks) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: tasks.map((task) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 6.0),
-          child: ListTile(
-            title: Text(task.title),
-            subtitle: Text(task.date),
-            trailing: Checkbox(
-              value: task.isCompleted,
-              onChanged: (value) {
-                context
-                    .read<TaskBloc>()
-                    .add(TaskEvent.toggleTaskCompletion(task));
-              },
-            ),
-          ),
-        );
-      }).toList(),
+      children: [
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(vertical: 8.0),
+        //   child: Text(
+        //     title,
+        //     style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+        //   ),
+        // ),
+        Column(
+          children: tasks.map((task) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xffEEEEEE),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: ListTile(
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 4.0,
+                    horizontal: 8.0,
+                  ),
+                  leading: IconButton(
+                    icon: SvgPicture.asset("assets/icons/circle.svg"),
+                    onPressed: () {
+                      context
+                          .read<TaskBloc>()
+                          .add(TaskEvent.toggleTaskCompletion(task));
+                    },
+                  ),
+                  title: Text(
+                    task.title,
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                  subtitle: Text(
+                    task.date,
+                    style: const TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
     );
   }
 
@@ -113,18 +141,21 @@ class _TaskListPageState extends State<TaskListPage> {
         iconColor: const Color(0xff26BDBE),
         children: tasks.map((task) {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            padding: const EdgeInsets.symmetric(vertical: 6.0),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: const Color(0xffEEEEEE),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: ListTile(
                 contentPadding: const EdgeInsets.symmetric(
-                  vertical: 8.0,
-                  horizontal: 16.0,
+                  vertical: 4.0,
+                  horizontal: 8.0,
                 ),
-                leading: SvgPicture.asset("assets/icons/done.svg"),
+                leading: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: SvgPicture.asset("assets/icons/done.svg"),
+                ),
                 title: Text(
                   task.title,
                   style: const TextStyle(

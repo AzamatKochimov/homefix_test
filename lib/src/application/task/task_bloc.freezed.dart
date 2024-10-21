@@ -20,18 +20,21 @@ mixin _$TaskEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() loadTasks,
     required TResult Function(Task task) toggleTaskCompletion,
+    required TResult Function(Task task) addTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadTasks,
     TResult? Function(Task task)? toggleTaskCompletion,
+    TResult? Function(Task task)? addTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadTasks,
     TResult Function(Task task)? toggleTaskCompletion,
+    TResult Function(Task task)? addTask,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$TaskEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadTasks value) loadTasks,
     required TResult Function(_ToggleTaskCompletion value) toggleTaskCompletion,
+    required TResult Function(_AddTask value) addTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadTasks value)? loadTasks,
     TResult? Function(_ToggleTaskCompletion value)? toggleTaskCompletion,
+    TResult? Function(_AddTask value)? addTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadTasks value)? loadTasks,
     TResult Function(_ToggleTaskCompletion value)? toggleTaskCompletion,
+    TResult Function(_AddTask value)? addTask,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -113,6 +119,7 @@ class _$LoadTasksImpl implements _LoadTasks {
   TResult when<TResult extends Object?>({
     required TResult Function() loadTasks,
     required TResult Function(Task task) toggleTaskCompletion,
+    required TResult Function(Task task) addTask,
   }) {
     return loadTasks();
   }
@@ -122,6 +129,7 @@ class _$LoadTasksImpl implements _LoadTasks {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadTasks,
     TResult? Function(Task task)? toggleTaskCompletion,
+    TResult? Function(Task task)? addTask,
   }) {
     return loadTasks?.call();
   }
@@ -131,6 +139,7 @@ class _$LoadTasksImpl implements _LoadTasks {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadTasks,
     TResult Function(Task task)? toggleTaskCompletion,
+    TResult Function(Task task)? addTask,
     required TResult orElse(),
   }) {
     if (loadTasks != null) {
@@ -144,6 +153,7 @@ class _$LoadTasksImpl implements _LoadTasks {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadTasks value) loadTasks,
     required TResult Function(_ToggleTaskCompletion value) toggleTaskCompletion,
+    required TResult Function(_AddTask value) addTask,
   }) {
     return loadTasks(this);
   }
@@ -153,6 +163,7 @@ class _$LoadTasksImpl implements _LoadTasks {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadTasks value)? loadTasks,
     TResult? Function(_ToggleTaskCompletion value)? toggleTaskCompletion,
+    TResult? Function(_AddTask value)? addTask,
   }) {
     return loadTasks?.call(this);
   }
@@ -162,6 +173,7 @@ class _$LoadTasksImpl implements _LoadTasks {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadTasks value)? loadTasks,
     TResult Function(_ToggleTaskCompletion value)? toggleTaskCompletion,
+    TResult Function(_AddTask value)? addTask,
     required TResult orElse(),
   }) {
     if (loadTasks != null) {
@@ -253,6 +265,7 @@ class _$ToggleTaskCompletionImpl implements _ToggleTaskCompletion {
   TResult when<TResult extends Object?>({
     required TResult Function() loadTasks,
     required TResult Function(Task task) toggleTaskCompletion,
+    required TResult Function(Task task) addTask,
   }) {
     return toggleTaskCompletion(task);
   }
@@ -262,6 +275,7 @@ class _$ToggleTaskCompletionImpl implements _ToggleTaskCompletion {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadTasks,
     TResult? Function(Task task)? toggleTaskCompletion,
+    TResult? Function(Task task)? addTask,
   }) {
     return toggleTaskCompletion?.call(task);
   }
@@ -271,6 +285,7 @@ class _$ToggleTaskCompletionImpl implements _ToggleTaskCompletion {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadTasks,
     TResult Function(Task task)? toggleTaskCompletion,
+    TResult Function(Task task)? addTask,
     required TResult orElse(),
   }) {
     if (toggleTaskCompletion != null) {
@@ -284,6 +299,7 @@ class _$ToggleTaskCompletionImpl implements _ToggleTaskCompletion {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadTasks value) loadTasks,
     required TResult Function(_ToggleTaskCompletion value) toggleTaskCompletion,
+    required TResult Function(_AddTask value) addTask,
   }) {
     return toggleTaskCompletion(this);
   }
@@ -293,6 +309,7 @@ class _$ToggleTaskCompletionImpl implements _ToggleTaskCompletion {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadTasks value)? loadTasks,
     TResult? Function(_ToggleTaskCompletion value)? toggleTaskCompletion,
+    TResult? Function(_AddTask value)? addTask,
   }) {
     return toggleTaskCompletion?.call(this);
   }
@@ -302,6 +319,7 @@ class _$ToggleTaskCompletionImpl implements _ToggleTaskCompletion {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadTasks value)? loadTasks,
     TResult Function(_ToggleTaskCompletion value)? toggleTaskCompletion,
+    TResult Function(_AddTask value)? addTask,
     required TResult orElse(),
   }) {
     if (toggleTaskCompletion != null) {
@@ -319,6 +337,155 @@ abstract class _ToggleTaskCompletion implements TaskEvent {
   @JsonKey(ignore: true)
   _$$ToggleTaskCompletionImplCopyWith<_$ToggleTaskCompletionImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddTaskImplCopyWith<$Res> {
+  factory _$$AddTaskImplCopyWith(
+          _$AddTaskImpl value, $Res Function(_$AddTaskImpl) then) =
+      __$$AddTaskImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Task task});
+
+  $TaskCopyWith<$Res> get task;
+}
+
+/// @nodoc
+class __$$AddTaskImplCopyWithImpl<$Res>
+    extends _$TaskEventCopyWithImpl<$Res, _$AddTaskImpl>
+    implements _$$AddTaskImplCopyWith<$Res> {
+  __$$AddTaskImplCopyWithImpl(
+      _$AddTaskImpl _value, $Res Function(_$AddTaskImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? task = null,
+  }) {
+    return _then(_$AddTaskImpl(
+      null == task
+          ? _value.task
+          : task // ignore: cast_nullable_to_non_nullable
+              as Task,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TaskCopyWith<$Res> get task {
+    return $TaskCopyWith<$Res>(_value.task, (value) {
+      return _then(_value.copyWith(task: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$AddTaskImpl implements _AddTask {
+  const _$AddTaskImpl(this.task);
+
+  @override
+  final Task task;
+
+  @override
+  String toString() {
+    return 'TaskEvent.addTask(task: $task)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddTaskImpl &&
+            (identical(other.task, task) || other.task == task));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, task);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddTaskImplCopyWith<_$AddTaskImpl> get copyWith =>
+      __$$AddTaskImplCopyWithImpl<_$AddTaskImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadTasks,
+    required TResult Function(Task task) toggleTaskCompletion,
+    required TResult Function(Task task) addTask,
+  }) {
+    return addTask(task);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadTasks,
+    TResult? Function(Task task)? toggleTaskCompletion,
+    TResult? Function(Task task)? addTask,
+  }) {
+    return addTask?.call(task);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadTasks,
+    TResult Function(Task task)? toggleTaskCompletion,
+    TResult Function(Task task)? addTask,
+    required TResult orElse(),
+  }) {
+    if (addTask != null) {
+      return addTask(task);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadTasks value) loadTasks,
+    required TResult Function(_ToggleTaskCompletion value) toggleTaskCompletion,
+    required TResult Function(_AddTask value) addTask,
+  }) {
+    return addTask(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadTasks value)? loadTasks,
+    TResult? Function(_ToggleTaskCompletion value)? toggleTaskCompletion,
+    TResult? Function(_AddTask value)? addTask,
+  }) {
+    return addTask?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadTasks value)? loadTasks,
+    TResult Function(_ToggleTaskCompletion value)? toggleTaskCompletion,
+    TResult Function(_AddTask value)? addTask,
+    required TResult orElse(),
+  }) {
+    if (addTask != null) {
+      return addTask(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddTask implements TaskEvent {
+  const factory _AddTask(final Task task) = _$AddTaskImpl;
+
+  Task get task;
+  @JsonKey(ignore: true)
+  _$$AddTaskImplCopyWith<_$AddTaskImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

@@ -27,4 +27,14 @@ class TaskRepository {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_tasksKey, jsonEncode(updatedTasks));
   }
+
+  // New method to add a task
+  Future<void> addTask(Task task) async {
+    final tasks = await getTasks();
+    tasks.add(task);
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_tasksKey, jsonEncode(tasks));
+  }
 }
+
