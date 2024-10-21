@@ -1,45 +1,75 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:homefix_test/src/presentation/pages/add_new_task_page.dart';
 import '../../application/task/task_bloc.dart';
 import '../../domain/entities/task.dart';
 
-class TaskListPage extends StatelessWidget {
+class TaskListPage extends StatefulWidget {
   const TaskListPage({super.key});
+
+  @override
+  State<TaskListPage> createState() => _TaskListPageState();
+}
+
+class _TaskListPageState extends State<TaskListPage> {
+
+  @override
+  void initState() {
+    context.read<TaskBloc>().add(const TaskEvent.loadTasks());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Padding(
-          padding: EdgeInsets.only(left: 22),
-          child: Text('My Plans List'),
-        ),
-      ),
-      body: BlocBuilder<TaskBloc, TaskState>(
-        builder: (context, state) {
-          if (state is TaskState.loaded) {
-            final pendingTasks =
-                state.tasks.where((task) => !task.isCompleted).toList();
-            final completedTasks =
-                state.tasks.where((task) => task.isCompleted).toList();
-
-            return SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22),
-                child: Column(
-                  children: [
-                    _buildTaskList(context, 'Pending Tasks', pendingTasks),
-                    _buildCompletedTasks(completedTasks, context),
-                  ],
-                ),
+        appBar: AppBar(
+          title: const Padding(
+            padding: EdgeInsets.only(left: 22),
+            child: Text('My Plans List'),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 22),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (ctx) => const AddNewPlanPage(),
+                    ),
+                  );
+                },
+                icon: SvgPicture.asset("assets/icons/add.svg"),
               ),
+            ),
+          ],
+        ),
+        body: BlocBuilder<TaskBloc, TaskState>(
+          builder: (context, state) {
+            return state.when(
+              initial: () => const Center(child: CircularProgressIndicator()),
+              loaded: (tasks) {
+                final pendingTasks =
+                    tasks.where((task) => !task.isCompleted).toList();
+                final completedTasks =
+                    tasks.where((task) => task.isCompleted).toList();
+
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 22),
+                    child: Column(
+                      children: [
+                        _buildTaskList(context, 'Pending Tasks', pendingTasks),
+                        _buildCompletedTasks(completedTasks, context),
+                      ],
+                    ),
+                  ),
+                );
+              },
             );
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
-    );
+          },
+        ));
   }
 
   Widget _buildTaskList(BuildContext context, String title, List<Task> tasks) {
@@ -66,14 +96,54 @@ class TaskListPage extends StatelessWidget {
   }
 
   Widget _buildCompletedTasks(List<Task> tasks, BuildContext context) {
-    return ExpansionTile(
-      title: Text('${tasks.length} Completed Tasks'),
-      children: tasks.map((task) {
-        return ListTile(
-          title: Text(task.title),
-          subtitle: Text(task.date),
-        );
-      }).toList(),
+    return Theme(
+      data: Theme.of(context).copyWith(
+        dividerColor: Colors.transparent,
+      ),
+      child: ExpansionTile(
+        tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
+        title: Text(
+          '${tasks.length} Completed Tasks',
+          style: const TextStyle(
+            color: Color(0xff26BDBE),
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        iconColor: const Color(0xff26BDBE),
+        children: tasks.map((task) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: ListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 8.0,
+                  horizontal: 16.0,
+                ),
+                leading: SvgPicture.asset("assets/icons/done.svg"),
+                title: Text(
+                  task.title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                subtitle: Text(
+                  task.date,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
 }

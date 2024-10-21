@@ -53,8 +53,8 @@ class NavigationController extends StatefulWidget {
   _NavigationControllerState createState() => _NavigationControllerState();
 }
 class _NavigationControllerState extends State<NavigationController> {
-  int _selectedIndex = 1;
-  
+  int _selectedIndex = 0;
+
   final List<Widget> _pages = [
     const EmptyPage(title: 'Home'),
     const TaskListPage(),
@@ -98,7 +98,7 @@ class _NavigationControllerState extends State<NavigationController> {
                 : "assets/icons/profile.svg",
           ),
         ],
-        onTap: _onItemTapped, // Simplified callback
+        onTap: _onItemTapped,
       ),
     );
   }
